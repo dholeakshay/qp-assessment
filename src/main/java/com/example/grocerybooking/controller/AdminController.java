@@ -23,6 +23,7 @@ public class AdminController {
     @Autowired
     private OrderRepository orderRepository;
 
+    //Add new grocery items to the system
     @PostMapping
     public ResponseEntity<String> addGroceryItems(@RequestBody List<GroceryItem> items) {
         try {
@@ -34,17 +35,20 @@ public class AdminController {
         }
     }
 
+    // View existing grocery items
     @GetMapping
     public List<GroceryItem> getGroceryItems() {
         return groceryItemRepository.findAll();
     }
 
+    // Remove grocery items from the system
     @DeleteMapping("/{itemId}")
     public String removeGroceryItem(@PathVariable Long itemId) {
         groceryItemRepository.deleteById(itemId);
         return "Grocery item remove successfully";
     }
 
+    //Update details (e.g., name, price) of existing grocery items
     @PutMapping("/{itemId}")
     public String updateGroceryItem(@PathVariable Long itemId, @RequestBody GroceryItem newItem) {
         if (groceryItemRepository.existsById(itemId)) {
