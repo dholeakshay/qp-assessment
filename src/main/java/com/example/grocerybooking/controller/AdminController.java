@@ -58,7 +58,8 @@ public class AdminController {
         }
         return "Grocery item not found";
     }
-
+    
+    //Manage inventory levels of grocery items
     @PutMapping("/{itemId}/manage-inventory")
     public ResponseEntity<String> manageInventory(
             @PathVariable Long itemId,
@@ -86,11 +87,13 @@ public class AdminController {
         }
     }
 
-
+    //Inventory Items less than 10 it is helpful to Manage inventory levels of grocery items
     @GetMapping("/low-quantity")
     public List<GroceryItem> getItemsWithLowQuantity() {
         return groceryItemRepository.findByQuantityLessThan(10);
     }
+
+    //Order placed details of User
     @GetMapping("/orders")
     public List<PlacedOrder> getAllOrders() {
         return orderRepository.findAll();
