@@ -32,6 +32,7 @@ public class UserController {
     @Autowired
     private ModelMapper modelMapper;
 
+    //View the list of available grocery items
     @GetMapping("/items")
     public List<GroceryItemDTO> getAvailableItems() {
         List<GroceryItem> availableItems = groceryItemRepository.findByQuantityGreaterThan(0);
@@ -40,10 +41,12 @@ public class UserController {
                 .collect(Collectors.toList());
     }
 
+    // Utility method to convert GroceryItemDTO to GroceryItem
     private GroceryItemDTO convertToDto(GroceryItem groceryItem) {
         return modelMapper.map(groceryItem, GroceryItemDTO.class);
     }
 
+    // Ability to book multiple grocery items in a single order
     @PostMapping("/order")
     public ResponseEntity<PlacedOrder> placeOrder(@RequestBody List<OrderItemDTO> orderItemsDtos) {
         try {
